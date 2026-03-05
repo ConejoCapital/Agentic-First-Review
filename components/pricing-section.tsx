@@ -8,9 +8,9 @@ const plans = [
     name: "Free",
     price: "$0",
     period: "",
-    description: "Try it out with 20 expert personas",
+    description: "20 AI agents analyze your site — no payment required",
     features: [
-      "20 personas (Wave 1: Technical)",
+      "20 specialized AI agent reviewers",
       "1 review per day",
       "Basic report with scores",
       "Copy-to-clipboard export",

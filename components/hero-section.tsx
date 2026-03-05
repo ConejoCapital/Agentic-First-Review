@@ -115,7 +115,7 @@ export function HeroSection() {
         >
           What would{" "}
           <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-            100 experts
+            20 AI agents
           </span>{" "}
           think of your website?
         </motion.h1>
@@ -127,7 +127,7 @@ export function HeroSection() {
           transition={{ delay: 0.3 }}
         >
           <p className="text-lg text-gray-500">
-            Get reviewed by{" "}
+            Get feedback from AI{" "}
             <AnimatePresence mode="wait">
               <motion.span
                 key={personaIndex}
@@ -220,8 +220,7 @@ export function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          Free: 20 personas (1 wave) &middot; Pro: 100 personas (5 waves) with
-          BYOK
+          20 AI agents analyze your site and deliver actionable feedback
         </motion.p>
       </div>
     </section>

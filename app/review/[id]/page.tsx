@@ -387,7 +387,7 @@ export default function ReviewPage() {
                 Unlock 80 More Expert Reviews
               </h3>
               <p className="mb-4 text-sm text-gray-600">
-                You received 20 persona reviews from Wave 1. Upgrade to Pro to
+                You received 20 AI agent reviews from Wave 1. Upgrade to Pro to
                 get all 100 reviews across 5 specialized waves: Technical,
                 Business, Users, Specialists, and Edge Cases.
               </p>

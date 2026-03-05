@@ -128,7 +128,7 @@ export function ReviewProgress({
           {totalReviewed}
         </span>
         <span className="text-lg text-gray-400">/100</span>
-        <p className="mt-1 text-sm text-gray-500">personas reviewed</p>
+        <p className="mt-1 text-sm text-gray-500">agents reviewed</p>
       </motion.div>
     </div>
   );
