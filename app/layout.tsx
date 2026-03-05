@@ -7,12 +7,12 @@ import { Footer } from "@/components/footer";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Agentic First Review | 100 AI Expert Personas Review Your Website",
+  title: "Agentic First Review | 20 AI Agents Review Your Website",
   description:
-    "Paste any URL and get actionable feedback from 100 AI expert personas — developers, marketers, designers, investors, and more.",
+    "Paste any URL and get actionable feedback from 20 AI agents — developers, marketers, designers, investors, and more.",
   openGraph: {
     title: "Agentic First Review",
-    description: "Get your website reviewed by 100 AI expert personas.",
+    description: "Get your website reviewed by 20 AI agents.",
     type: "website",
   },
 };

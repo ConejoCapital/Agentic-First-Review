@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Copy, Check, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { generateMarkdownReport } from "@/lib/report-generator";
+import { generateMarkdownReport, generatePlainTextReport } from "@/lib/report-generator";
 import type { PersonaReview, AggregateData } from "@/lib/types";
 
 interface CopyReportProps {
@@ -60,6 +60,20 @@ export function CopyReport({
     URL.revokeObjectURL(downloadUrl);
   };
 
+  const handleDownloadTxt = () => {
+    if (!aggregate) return;
+    const report = generatePlainTextReport(url, reviews, aggregate);
+    const blob = new Blob([report], { type: "text/plain" });
+    const downloadUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = downloadUrl;
+    a.download = `website-review-${new Date().toISOString().split("T")[0]}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(downloadUrl);
+  };
+
   return (
     <div className="flex flex-wrap items-center gap-3">
       <button
@@ -99,6 +113,20 @@ export function CopyReport({
       >
         <Download className="h-4 w-4" />
         Download as Markdown
+      </button>
+
+      <button
+        onClick={handleDownloadTxt}
+        disabled={disabled}
+        className={cn(
+          "inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-semibold transition-all",
+          disabled
+            ? "cursor-not-allowed border-gray-200 text-gray-400"
+            : "border-gray-300 text-gray-700 hover:bg-gray-50 active:scale-[0.98]"
+        )}
+      >
+        <Download className="h-4 w-4" />
+        Download .txt for Coding Tools
       </button>
     </div>
   );

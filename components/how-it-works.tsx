@@ -12,15 +12,15 @@ const steps = [
   },
   {
     icon: Users,
-    title: "100 AI Agents Review It",
+    title: "20 AI Agents Review It",
     description:
-      "5 waves of 20 expert personas — developers, investors, designers, and more — evaluate your site.",
+      "20 specialized AI agent personas — developers, investors, designers, and more — evaluate your site.",
   },
   {
     icon: FileText,
     title: "Get an Actionable Report",
     description:
-      "Scores, verdicts, recommendations, and audience fit analysis you can copy and act on.",
+      "Scores, verdicts, recommendations, and a downloadable report you can feed into your coding tools.",
   },
 ];
 
