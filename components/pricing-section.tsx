@@ -4,8 +4,7 @@ import { motion } from "framer-motion";
 import { Check, Sparkles } from "lucide-react";
 
 const features = [
-  "100 AI personas (all 5 waves)",
-  "Technical, Business, User, Specialist & Edge Case reviews",
+  "20 AI expert personas (Wave 1: Technical)",
   "Detailed scores across 10 categories",
   "Audience fit analysis",
   "Top recommendations",
@@ -49,7 +48,7 @@ export function PricingSection() {
             <span className="text-4xl font-extrabold text-gray-900">$0</span>
           </div>
           <p className="mt-2 text-sm text-gray-500">
-            Full 100-persona analysis — no payment required
+            20-persona expert analysis — no payment required
           </p>
 
           <ul className="mt-6 space-y-3">

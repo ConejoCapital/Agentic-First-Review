@@ -98,7 +98,7 @@ export function HeroSection() {
         >
           What would{" "}
           <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-            100 experts
+            20 experts
           </span>{" "}
           think of your website?
         </motion.h1>
@@ -181,7 +181,7 @@ export function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          100 AI personas across 5 waves &middot; Technical, Business, Users, Specialists &amp; Edge Cases
+          20 AI expert personas review your site in under a minute
         </motion.p>
       </div>
     </section>

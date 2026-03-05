@@ -235,7 +235,7 @@ export default function ReviewPage() {
       if (processingRef.current) return;
       processingRef.current = true;
 
-      const maxWaves = 5; // Demo mode: all waves
+      const maxWaves = 1; // Demo mode: 1 wave (20 personas)
       let allReviews: PersonaReview[] = [];
 
       for (let wave = 1; wave <= maxWaves; wave++) {
