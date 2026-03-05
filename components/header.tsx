@@ -28,17 +28,11 @@ export function Header() {
             How It Works
           </a>
           <a
-            href="#pricing"
-            className="text-sm text-gray-600 transition-colors hover:text-gray-900"
-          >
-            Pricing
-          </a>
-          <Link
-            href="/pricing"
+            href="#"
             className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
           >
             Get Started
-          </Link>
+          </a>
         </nav>
 
         {/* Mobile menu button */}
@@ -67,19 +61,12 @@ export function Header() {
               How It Works
             </a>
             <a
-              href="#pricing"
-              className="text-sm text-gray-600"
-              onClick={() => setMenuOpen(false)}
-            >
-              Pricing
-            </a>
-            <Link
-              href="/pricing"
+              href="#"
               className="rounded-lg bg-indigo-600 px-4 py-2 text-center text-sm font-semibold text-white"
               onClick={() => setMenuOpen(false)}
             >
               Get Started
-            </Link>
+            </a>
           </nav>
         </div>
       )}
