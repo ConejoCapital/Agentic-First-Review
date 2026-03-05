@@ -23,20 +23,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Free tier can only use wave 1
+    // Use provided key or fall back to server key
     const key = apiKey || process.env.ANTHROPIC_API_KEY;
     if (!key) {
       return NextResponse.json(
-        { error: "No API key available. Set ANTHROPIC_API_KEY or provide your own key." },
+        { error: "No API key available. Set ANTHROPIC_API_KEY environment variable." },
         { status: 500 }
-      );
-    }
-
-    // If no user API key provided and wave > 1, block it (free tier)
-    if (!apiKey && waveNumber > 1) {
-      return NextResponse.json(
-        { error: "Free tier only includes Wave 1 (20 personas). Upgrade to Pro for all 100 personas." },
-        { status: 403 }
       );
     }
 

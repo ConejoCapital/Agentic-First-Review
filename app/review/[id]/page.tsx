@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { useParams, useSearchParams } from "next/navigation";
-import { ExternalLink, ArrowLeft, Sparkles, Lock } from "lucide-react";
+import { useParams } from "next/navigation";
+import { ExternalLink, ArrowLeft } from "lucide-react";
 import type {
   PersonaReview,
   AggregateData,
@@ -142,7 +142,6 @@ function computeAggregate(reviews: PersonaReview[]): AggregateData {
 
 export default function ReviewPage() {
   const params = useParams();
-  const searchParams = useSearchParams();
   const reviewId = params.id as string;
 
   // State
@@ -155,27 +154,12 @@ export default function ReviewPage() {
   const [, setCurrentWave] = useState(0);
   const [aggregate, setAggregate] = useState<AggregateData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [apiKey, setApiKey] = useState<string>("");
-  const [isPro, setIsPro] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
   const processingRef = useRef(false);
 
-  // Initialize from sessionStorage or URL params
+  // Initialize from sessionStorage
   useEffect(() => {
-    const storedKey =
-      searchParams.get("apiKey") ||
-      (typeof window !== "undefined" ? localStorage.getItem("afr-api-key") : null) ||
-      "";
-    if (storedKey) {
-      setApiKey(storedKey);
-      setIsPro(true);
-      if (typeof window !== "undefined") {
-        localStorage.setItem("afr-api-key", storedKey);
-      }
-    }
-
-    // Try to load from sessionStorage
     if (typeof window !== "undefined") {
       const stored = sessionStorage.getItem(`review-${reviewId}`);
       if (stored) {
@@ -188,11 +172,11 @@ export default function ReviewPage() {
         }
       }
     }
-  }, [reviewId, searchParams]);
+  }, [reviewId]);
 
   // Process a single wave
   const processWave = useCallback(
-    async (waveNumber: number, content: string, key: string) => {
+    async (waveNumber: number, content: string) => {
       const idx = waveNumber - 1;
 
       setWaveStatuses((prev) => {
@@ -209,7 +193,6 @@ export default function ReviewPage() {
             reviewId,
             waveNumber,
             content,
-            apiKey: key || undefined,
           }),
         });
 
@@ -248,16 +231,16 @@ export default function ReviewPage() {
 
   // Start processing waves
   const startProcessing = useCallback(
-    async (content: string, key: string, pro: boolean) => {
+    async (content: string) => {
       if (processingRef.current) return;
       processingRef.current = true;
 
-      const maxWaves = pro ? 5 : 1;
+      const maxWaves = 1; // Demo mode: 1 wave (20 personas)
       let allReviews: PersonaReview[] = [];
 
       for (let wave = 1; wave <= maxWaves; wave++) {
         setCurrentWave(wave);
-        const waveReviews = await processWave(wave, content, key);
+        const waveReviews = await processWave(wave, content);
         if (!waveReviews) break;
         allReviews = [...allReviews, ...waveReviews];
 
@@ -290,9 +273,9 @@ export default function ReviewPage() {
   // Auto-start processing when content is available
   useEffect(() => {
     if (scrapedContent && !processingRef.current && reviews.length === 0) {
-      startProcessing(scrapedContent, apiKey, isPro);
+      startProcessing(scrapedContent);
     }
-  }, [scrapedContent, apiKey, isPro, startProcessing, reviews.length]);
+  }, [scrapedContent, startProcessing, reviews.length]);
 
   // Also update aggregate whenever reviews change
   useEffect(() => {
@@ -362,7 +345,6 @@ export default function ReviewPage() {
           <ReviewProgress
             waveStatuses={waveStatuses}
             totalReviewed={reviews.length}
-            isPro={isPro}
           />
         </div>
 
@@ -373,33 +355,7 @@ export default function ReviewPage() {
           </div>
         )}
 
-        {/* Free tier upsell after Wave 1 */}
-        {!isPro &&
-          waveStatuses[0] === "complete" &&
-          waveStatuses[1] === "idle" && (
-            <div className="mb-8 rounded-2xl border-2 border-indigo-200 bg-indigo-50 p-6 text-center">
-              <div className="mb-3 flex justify-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100">
-                  <Lock className="h-6 w-6 text-indigo-600" />
-                </div>
-              </div>
-              <h3 className="mb-2 text-lg font-bold text-gray-900">
-                Unlock 80 More Expert Reviews
-              </h3>
-              <p className="mb-4 text-sm text-gray-600">
-                You received 20 AI agent reviews from Wave 1. Upgrade to Pro to
-                get all 100 reviews across 5 specialized waves: Technical,
-                Business, Users, Specialists, and Edge Cases.
-              </p>
-              <a
-                href="/pricing"
-                className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
-              >
-                <Sparkles className="h-4 w-4" />
-                Upgrade to Pro
-              </a>
-            </div>
-          )}
+
 
         {/* Results section */}
         {aggregate && reviews.length > 0 && (

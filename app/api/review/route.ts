@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { scrapeUrl, contentToPromptText } from "@/lib/scraper";
-import { checkRateLimit } from "@/lib/rate-limiter";
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,19 +20,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: "Invalid URL format" },
         { status: 400 }
-      );
-    }
-
-    // Rate limit check for free tier (no API key = free tier)
-    const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "unknown";
-    const rateLimit = checkRateLimit(ip);
-    if (!rateLimit.allowed) {
-      return NextResponse.json(
-        {
-          error: "Rate limit exceeded. Free tier allows 1 review per day. Upgrade to Pro for unlimited reviews.",
-          resetAt: rateLimit.resetAt,
-        },
-        { status: 429 }
       );
     }
 

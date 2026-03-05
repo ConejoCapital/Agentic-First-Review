@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, Lock, Loader2 } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { WaveStatus } from "@/lib/types";
 import { WAVE_DEFINITIONS } from "@/lib/types";
@@ -9,13 +9,11 @@ import { WAVE_DEFINITIONS } from "@/lib/types";
 interface ReviewProgressProps {
   waveStatuses: WaveStatus[];
   totalReviewed: number;
-  isPro: boolean;
 }
 
 export function ReviewProgress({
   waveStatuses,
   totalReviewed,
-  isPro,
 }: ReviewProgressProps) {
   return (
     <div className="w-full">
@@ -23,7 +21,6 @@ export function ReviewProgress({
       <div className="flex items-center justify-center gap-3 sm:gap-6">
         {WAVE_DEFINITIONS.map((wave, i) => {
           const status = waveStatuses[i] || "idle";
-          const isLocked = !isPro && i > 0;
 
           return (
             <div key={wave.number} className="flex flex-col items-center gap-2">
@@ -51,29 +48,11 @@ export function ReviewProgress({
                     <span className="text-sm font-bold text-red-500">!</span>
                   </div>
                 ) : (
-                  <div
-                    className={cn(
-                      "flex h-12 w-12 items-center justify-center rounded-full border-2",
-                      isLocked
-                        ? "border-gray-200 bg-gray-50"
-                        : "border-gray-300 bg-white"
-                    )}
-                  >
-                    {isLocked ? (
-                      <Lock className="h-4 w-4 text-gray-400" />
-                    ) : (
-                      <span className="text-sm font-medium text-gray-400">
-                        {wave.number}
-                      </span>
-                    )}
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-gray-300 bg-white">
+                    <span className="text-sm font-medium text-gray-400">
+                      {wave.number}
+                    </span>
                   </div>
-                )}
-
-                {/* Pro badge on locked waves */}
-                {isLocked && status === "idle" && (
-                  <span className="absolute -right-1 -top-1 rounded-full bg-indigo-600 px-1.5 py-0.5 text-[10px] font-bold text-white">
-                    Pro
-                  </span>
                 )}
               </div>
 
@@ -85,9 +64,7 @@ export function ReviewProgress({
                     ? "text-emerald-600"
                     : status === "processing"
                       ? "text-indigo-600"
-                      : isLocked
-                        ? "text-gray-400"
-                        : "text-gray-500"
+                      : "text-gray-500"
                 )}
               >
                 {wave.name}
@@ -127,7 +104,7 @@ export function ReviewProgress({
         <span className="text-2xl font-bold text-gray-900">
           {totalReviewed}
         </span>
-        <span className="text-lg text-gray-400">/100</span>
+        <span className="text-lg text-gray-400">/20</span>
         <p className="mt-1 text-sm text-gray-500">agents reviewed</p>
       </motion.div>
     </div>

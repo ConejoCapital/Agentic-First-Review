@@ -20,8 +20,6 @@ const PERSONA_TYPES = [
 export function HeroSection() {
   const router = useRouter();
   const [url, setUrl] = useState("");
-  const [apiKey, setApiKey] = useState("");
-  const [showApiKey, setShowApiKey] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [personaIndex, setPersonaIndex] = useState(0);
@@ -31,17 +29,6 @@ export function HeroSection() {
       setPersonaIndex((i) => (i + 1) % PERSONA_TYPES.length);
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
-
-  // Load saved API key
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedKey = localStorage.getItem("afr-api-key");
-      if (savedKey) {
-        setApiKey(savedKey);
-        setShowApiKey(true);
-      }
-    }
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -88,13 +75,9 @@ export function HeroSection() {
           `review-${data.reviewId}`,
           JSON.stringify({ url: finalUrl, content: data.content })
         );
-        if (apiKey) {
-          localStorage.setItem("afr-api-key", apiKey);
-        }
       }
 
-      const params = apiKey ? `?apiKey=${encodeURIComponent(apiKey)}` : "";
-      router.push(`/review/${data.reviewId}${params}`);
+      router.push(`/review/${data.reviewId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
       setIsSubmitting(false);
@@ -185,28 +168,6 @@ export function HeroSection() {
                 </>
               )}
             </button>
-          </div>
-
-          {/* API key toggle */}
-          <div className="mt-3 text-left">
-            <button
-              type="button"
-              onClick={() => setShowApiKey(!showApiKey)}
-              className="text-xs text-gray-400 hover:text-indigo-600"
-            >
-              {showApiKey ? "Hide" : "Have an Anthropic API key? (Pro)"}
-            </button>
-            {showApiKey && (
-              <motion.input
-                type="password"
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-                placeholder="sk-ant-..."
-                className="mt-2 w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-700 outline-none focus:border-indigo-300 focus:ring-1 focus:ring-indigo-100"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-              />
-            )}
           </div>
 
           {error && (
