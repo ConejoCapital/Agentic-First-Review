@@ -48,11 +48,11 @@ export function ReviewProgress({
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <Check className="h-5 w-5 text-emerald-400" />
+                    <Check className="h-5 w-5 text-emerald-500" />
                   </motion.div>
                 ) : status === "error" ? (
                   <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-red-500/50 bg-red-500/10">
-                    <span className="text-sm font-bold text-red-400">!</span>
+                    <span className="text-sm font-bold text-red-500">!</span>
                   </div>
                 ) : (
                   <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-border bg-surface">
@@ -69,7 +69,7 @@ export function ReviewProgress({
                   locked
                     ? "text-muted-foreground"
                     : status === "complete"
-                      ? "text-emerald-400"
+                      ? "text-emerald-600"
                       : status === "processing"
                         ? "text-accent"
                         : "text-muted-foreground"

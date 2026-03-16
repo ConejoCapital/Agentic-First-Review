@@ -34,7 +34,7 @@ export function SocialProof() {
           {signals.map((signal) => (
             <div
               key={signal.label}
-              className="flex items-center gap-3 rounded-full border border-border bg-surface px-5 py-2.5"
+              className="flex items-center gap-3 rounded-full bg-white shadow-sm px-5 py-2.5"
             >
               <signal.icon className="h-4 w-4 text-accent" />
               <div>

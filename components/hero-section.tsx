@@ -83,16 +83,16 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden px-4 pb-24 pt-20 sm:pt-32 gradient-mesh">
+    <section className="relative overflow-hidden px-4 pb-24 pt-20 sm:pt-32 hero-gradient">
       <div className="mx-auto max-w-3xl text-center">
         <motion.h1
-          className="font-display text-4xl tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+          className="font-display text-4xl tracking-tight text-white sm:text-5xl lg:text-6xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
           Is your website ready for the{" "}
-          <span className="text-accent">AI agent era</span>?
+          <span className="text-[#00d4aa]">AI agent era</span>?
         </motion.h1>
 
         <motion.div
@@ -101,12 +101,12 @@ export function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-white/70">
             Scanning as{" "}
             <AnimatePresence mode="wait">
               <motion.span
                 key={personaIndex}
-                className="inline-block font-semibold text-accent"
+                className="inline-block font-semibold text-[#00d4aa]"
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -10, opacity: 0 }}
@@ -128,13 +128,13 @@ export function HeroSection() {
         >
           <div className="flex flex-col gap-3 sm:flex-row">
             <div className="relative flex-1">
-              <Globe className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+              <Globe className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/50" />
               <input
                 type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="Paste your website URL..."
-                className="w-full rounded-xl border border-border bg-surface px-12 py-4 text-base text-foreground shadow-sm outline-none transition-all placeholder:text-muted-foreground focus:border-accent/50 focus:ring-2 focus:ring-accent/20"
+                className="hero-input w-full rounded-xl px-12 py-4 text-base shadow-sm transition-all"
                 disabled={isSubmitting}
               />
             </div>
@@ -144,8 +144,8 @@ export function HeroSection() {
               className={cn(
                 "flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-base font-semibold transition-all",
                 isSubmitting
-                  ? "cursor-not-allowed bg-accent/50 text-background"
-                  : "bg-accent text-background hover:bg-accent-hover glow-accent hover:shadow-lg"
+                  ? "cursor-not-allowed bg-white/50 text-[#0a2540]"
+                  : "bg-white text-[#0a2540] shadow-lg hover:shadow-xl"
               )}
             >
               {isSubmitting ? (
@@ -163,12 +163,12 @@ export function HeroSection() {
           </div>
 
           {error && (
-            <p className="mt-3 text-sm text-red-400">{error}</p>
+            <p className="mt-3 text-sm text-red-300">{error}</p>
           )}
         </motion.form>
 
         <motion.p
-          className="mt-6 text-sm text-muted-foreground"
+          className="mt-6 text-sm text-white/60"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}

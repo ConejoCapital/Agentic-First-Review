@@ -13,7 +13,7 @@ export async function GET() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#0a0a0a",
+          background: "linear-gradient(135deg, #0a2540 0%, #1a1068 40%, #3d2b8c 70%, #1b6b6d 100%)",
           fontFamily: "system-ui",
         }}
       >
@@ -37,7 +37,7 @@ export async function GET() {
                 width: "64px",
                 height: "64px",
                 borderRadius: "16px",
-                backgroundColor: "#00E5A0",
+                backgroundColor: "#635bff",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -50,7 +50,7 @@ export async function GET() {
               style={{
                 fontSize: "48px",
                 fontWeight: 700,
-                color: "#e5e5e5",
+                color: "#ffffff",
               }}
             >
               Agentic-First SEO
@@ -60,7 +60,7 @@ export async function GET() {
           <p
             style={{
               fontSize: "28px",
-              color: "#a3a3a3",
+              color: "rgba(255,255,255,0.7)",
               textAlign: "center",
               maxWidth: "700px",
             }}
@@ -84,12 +84,12 @@ export async function GET() {
                   gap: "8px",
                   padding: "8px 20px",
                   borderRadius: "999px",
-                  border: "1px solid #2a2a2a",
-                  backgroundColor: "#1a1a1a",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  backgroundColor: "rgba(255,255,255,0.1)",
                 }}
               >
-                <span style={{ color: "#00E5A0", fontSize: "16px" }}>●</span>
-                <span style={{ color: "#e5e5e5", fontSize: "18px" }}>
+                <span style={{ color: "#00d4aa", fontSize: "16px" }}>●</span>
+                <span style={{ color: "#ffffff", fontSize: "18px" }}>
                   {text}
                 </span>
               </div>

@@ -25,28 +25,28 @@ export function WhyAgentic() {
         <div className="grid gap-8 md:grid-cols-2">
           {/* Problem */}
           <motion.div
-            className="rounded-2xl border border-border bg-surface p-8"
+            className="rounded-2xl bg-white card-shadow p-8"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-red-500/10">
-              <AlertTriangle className="h-5 w-5 text-red-400" />
+            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-red-50">
+              <AlertTriangle className="h-5 w-5 text-red-500" />
             </div>
             <h3 className="mb-3 text-lg font-semibold text-foreground">
               Traditional SEO is not enough
             </h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-500" />
                 Google rankings don&apos;t tell you how AI agents perceive your site
               </li>
               <li className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-500" />
                 Keyword stuffing means nothing to an agent parsing your content
               </li>
               <li className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-500" />
                 AI agents evaluate trust, value, and clarity — not just keywords
               </li>
             </ul>
@@ -54,7 +54,7 @@ export function WhyAgentic() {
 
           {/* Solution */}
           <motion.div
-            className="rounded-2xl border border-accent/20 bg-accent/5 p-8"
+            className="rounded-2xl bg-white card-shadow p-8"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -93,7 +93,7 @@ export function WhyAgentic() {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center gap-2 rounded-xl border border-border bg-surface p-6"
+              className="flex flex-col items-center gap-2 rounded-xl bg-white card-shadow p-6"
             >
               <stat.icon className="h-5 w-5 text-accent" />
               <span className="text-3xl font-bold text-foreground">

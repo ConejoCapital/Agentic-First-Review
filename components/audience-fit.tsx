@@ -10,10 +10,10 @@ interface AudienceFitProps {
 function FitBadge({ score }: { score: number }) {
   const color =
     score >= 7
-      ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
       : score >= 5
-        ? "bg-amber-500/10 text-amber-400 border-amber-500/20"
-        : "bg-red-500/10 text-red-400 border-red-500/20";
+        ? "bg-amber-50 text-amber-700 border-amber-200"
+        : "bg-red-50 text-red-700 border-red-200";
   return (
     <span
       className={cn(
@@ -30,7 +30,7 @@ export function AudienceFit({ rows }: AudienceFitProps) {
   if (rows.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-border bg-surface p-6">
+    <div className="rounded-2xl bg-white card-shadow p-6">
       <h3 className="mb-5 text-lg font-semibold text-foreground">
         Audience Fit
       </h3>
@@ -58,7 +58,7 @@ export function AudienceFit({ rows }: AudienceFitProps) {
                 key={row.segment}
                 className={cn(
                   "border-b border-border/50",
-                  i % 2 === 1 && "bg-muted/30"
+                  i % 2 === 1 && "bg-surface/50"
                 )}
               >
                 <td className="py-3 pr-4 font-medium text-foreground">

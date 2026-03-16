@@ -287,7 +287,7 @@ export default function ReviewPage() {
   return (
     <div className="min-h-screen bg-background font-body">
       {/* Header bar */}
-      <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur-md">
+      <header className="sticky top-0 z-10 border-b border-border bg-background/80 shadow-sm backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <a
             href="/"
@@ -346,7 +346,7 @@ export default function ReviewPage() {
 
         {/* Upgrade CTA for free users after wave 1 */}
         {!isPro && isComplete && (
-          <div className="mb-8 rounded-xl border border-accent/20 bg-accent/5 p-6 text-center">
+          <div className="mb-8 rounded-xl bg-white card-shadow p-6 text-center">
             <Crown className="mx-auto mb-2 h-8 w-8 text-accent" />
             <h3 className="mb-1 text-lg font-semibold text-foreground">
               Unlock the full 100-persona analysis
@@ -365,7 +365,7 @@ export default function ReviewPage() {
 
         {/* Error display */}
         {error && (
-          <div className="mb-6 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+          <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
             {error}
           </div>
         )}

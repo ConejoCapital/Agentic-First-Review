@@ -80,7 +80,7 @@ export default function RootLayout({
       lang="en"
       className={`${instrumentSerif.variable} ${dmSans.variable}`}
     >
-      <body className="min-h-screen bg-background font-body antialiased noise-bg">
+      <body className="min-h-screen bg-background font-body antialiased">
         <JsonLd />
         <Header />
         <main>{children}</main>

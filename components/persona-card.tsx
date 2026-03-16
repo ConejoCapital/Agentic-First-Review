@@ -12,9 +12,9 @@ interface PersonaCardProps {
 
 function VerdictBadge({ verdict }: { verdict: Verdict }) {
   const config = {
-    yes: { label: "Yes", bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/20" },
-    maybe: { label: "Maybe", bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/20" },
-    no: { label: "No", bg: "bg-red-500/10", text: "text-red-400", border: "border-red-500/20" },
+    yes: { label: "Yes", bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200" },
+    maybe: { label: "Maybe", bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" },
+    no: { label: "No", bg: "bg-red-50", text: "text-red-700", border: "border-red-200" },
   };
   const c = config[verdict];
   return (
@@ -27,10 +27,10 @@ function VerdictBadge({ verdict }: { verdict: Verdict }) {
 function ScoreBadge({ score }: { score: number }) {
   const color =
     score >= 7
-      ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
       : score >= 5
-        ? "bg-amber-500/10 text-amber-400 border-amber-500/20"
-        : "bg-red-500/10 text-red-400 border-red-500/20";
+        ? "bg-amber-50 text-amber-700 border-amber-200"
+        : "bg-red-50 text-red-700 border-red-200";
   return (
     <span className={cn("inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-bold", color)}>
       {score.toFixed(1)}
@@ -51,7 +51,7 @@ export function PersonaCard({ review }: PersonaCardProps) {
 
   return (
     <motion.div
-      className="rounded-xl border border-border bg-surface transition-shadow hover:shadow-md hover:shadow-black/20"
+      className="rounded-xl bg-white card-shadow transition-shadow hover:card-shadow-hover"
       layout
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ export function PersonaCard({ review }: PersonaCardProps) {
 
               {review.positives.length > 0 && (
                 <div>
-                  <h4 className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-400">
+                  <h4 className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-600">
                     <ThumbsUp className="h-3.5 w-3.5" />
                     Positives
                   </h4>
@@ -116,7 +116,7 @@ export function PersonaCard({ review }: PersonaCardProps) {
                         key={i}
                         className="flex items-start gap-2 text-sm text-muted-foreground"
                       >
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                         {p}
                       </li>
                     ))}
@@ -126,7 +126,7 @@ export function PersonaCard({ review }: PersonaCardProps) {
 
               {review.concerns.length > 0 && (
                 <div>
-                  <h4 className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-red-400">
+                  <h4 className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-red-600">
                     <AlertTriangle className="h-3.5 w-3.5" />
                     Concerns
                   </h4>
@@ -136,7 +136,7 @@ export function PersonaCard({ review }: PersonaCardProps) {
                         key={i}
                         className="flex items-start gap-2 text-sm text-muted-foreground"
                       >
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400" />
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-500" />
                         {c}
                       </li>
                     ))}
@@ -152,10 +152,10 @@ export function PersonaCard({ review }: PersonaCardProps) {
                   {review.categoryScores.map((cs) => {
                     const color =
                       cs.score >= 7
-                        ? "text-emerald-400"
+                        ? "text-emerald-600"
                         : cs.score >= 5
-                          ? "text-amber-400"
-                          : "text-red-400";
+                          ? "text-amber-600"
+                          : "text-red-600";
                     return (
                       <div
                         key={cs.category}
@@ -183,19 +183,19 @@ export function PersonaCard({ review }: PersonaCardProps) {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-lg bg-emerald-500/10 p-3">
-                  <h5 className="mb-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                <div className="rounded-lg bg-emerald-50 p-3">
+                  <h5 className="mb-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
                     Top Praise
                   </h5>
-                  <p className="text-xs text-emerald-300">
+                  <p className="text-xs text-emerald-600">
                     {review.topPraise}
                   </p>
                 </div>
-                <div className="rounded-lg bg-red-500/10 p-3">
-                  <h5 className="mb-1 text-[10px] font-bold uppercase tracking-wider text-red-400">
+                <div className="rounded-lg bg-red-50 p-3">
+                  <h5 className="mb-1 text-[10px] font-bold uppercase tracking-wider text-red-700">
                     Top Concern
                   </h5>
-                  <p className="text-xs text-red-300">{review.topConcern}</p>
+                  <p className="text-xs text-red-600">{review.topConcern}</p>
                 </div>
               </div>
             </div>

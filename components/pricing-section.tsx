@@ -81,10 +81,10 @@ export function PricingSection() {
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
-              className={`rounded-2xl border p-8 ${
+              className={`rounded-2xl p-8 ${
                 plan.highlight
-                  ? "border-accent/30 bg-accent/5"
-                  : "border-border bg-surface"
+                  ? "border-2 border-accent bg-white card-shadow"
+                  : "border border-border bg-white card-shadow"
               }`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -142,7 +142,7 @@ export function PricingSection() {
               ) : (
                 <a
                   href="#"
-                  className="mt-8 block rounded-xl border border-border py-3 text-center text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+                  className="mt-8 block rounded-xl border border-border py-3 text-center text-sm font-semibold text-foreground transition-colors hover:bg-surface"
                 >
                   {plan.cta}
                 </a>

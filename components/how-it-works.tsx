@@ -41,7 +41,7 @@ export function HowItWorks() {
           {steps.map((step, i) => (
             <motion.div
               key={step.title}
-              className="rounded-2xl border border-border bg-surface p-8 text-center"
+              className="rounded-2xl bg-white card-shadow p-8 text-center"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

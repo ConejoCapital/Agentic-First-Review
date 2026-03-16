@@ -15,16 +15,16 @@ function ScoreRing({ score }: { score: number }) {
   const progress = (score / 10) * circumference;
   const color =
     score >= 7
-      ? "text-emerald-400"
+      ? "text-emerald-600"
       : score >= 5
-        ? "text-amber-400"
-        : "text-red-400";
+        ? "text-amber-600"
+        : "text-red-600";
   const strokeColor =
     score >= 7
-      ? "stroke-emerald-400"
+      ? "stroke-emerald-500"
       : score >= 5
-        ? "stroke-amber-400"
-        : "stroke-red-400";
+        ? "stroke-amber-500"
+        : "stroke-red-500";
 
   return (
     <div className="relative inline-flex items-center justify-center">
@@ -78,7 +78,7 @@ export function AggregateSummary({ aggregate }: AggregateSummaryProps) {
 
   return (
     <motion.div
-      className="rounded-2xl border border-border bg-surface p-6"
+      className="rounded-2xl bg-white card-shadow p-6"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -162,7 +162,7 @@ export function AggregateSummary({ aggregate }: AggregateSummaryProps) {
           <span className="text-xs text-muted-foreground">personas reviewed</span>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <div className="flex items-center gap-1.5 text-emerald-400">
+          <div className="flex items-center gap-1.5 text-emerald-600">
             <ThumbsUp className="h-4 w-4" />
             <span className="text-xl font-bold">
               {aggregate.recommendPercentage.toFixed(0)}%
@@ -171,7 +171,7 @@ export function AggregateSummary({ aggregate }: AggregateSummaryProps) {
           <span className="text-xs text-muted-foreground">would recommend</span>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <div className="flex items-center gap-1.5 text-amber-400">
+          <div className="flex items-center gap-1.5 text-amber-600">
             <Star className="h-4 w-4" />
             <span className="text-xl font-bold">
               {aggregate.overallScore.toFixed(1)}

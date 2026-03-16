@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #e5e5e5;
-  --surface: #1a1a1a;
-  --accent: #00e5a0;
-  --accent-hover: #00cc8e;
-  --muted: #262626;
-  --muted-foreground: #a3a3a3;
-  --border: #2a2a2a;
+  --background: #ffffff;
+  --foreground: #0a2540;
+  --surface: #f6f9fc;
+  --accent: #635bff;
+  --accent-hover: #5046e5;
+  --muted: #f0f2f5;
+  --muted-foreground: #425466;
+  --border: #e6ebf1;
 }
 
 body {
@@ -24,47 +24,44 @@ body {
   }
 }
 
-/* Noise texture overlay */
-.noise-bg::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  pointer-events: none;
+/* Hero gradient background */
+.hero-gradient {
+  background: linear-gradient(135deg, #0a2540 0%, #1a1068 40%, #3d2b8c 70%, #1b6b6d 100%);
 }
 
-/* Gradient mesh background */
-.gradient-mesh {
-  position: relative;
-}
-
-.gradient-mesh::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(
-      ellipse 80% 50% at 20% 40%,
-      rgba(0, 229, 160, 0.08) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 60% 40% at 80% 20%,
-      rgba(0, 229, 160, 0.05) 0%,
-      transparent 50%
-    );
-  pointer-events: none;
-}
-
-/* Accent glow for buttons */
+/* Accent shadow for buttons */
 .glow-accent {
-  box-shadow: 0 0 20px rgba(0, 229, 160, 0.15),
-    0 0 60px rgba(0, 229, 160, 0.05);
+  box-shadow: 0 4px 14px rgba(99, 91, 255, 0.25);
 }
 
-/* Score ring background for dark theme */
+/* Score ring background for light theme */
 .score-ring-bg {
-  stroke: #2a2a2a;
+  stroke: #e6ebf1;
+}
+
+/* Card shadow utilities */
+.card-shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.card-shadow-hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Glass input for hero gradient */
+.hero-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+}
+
+.hero-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-input:focus {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+  outline: none;
 }

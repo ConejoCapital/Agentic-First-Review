@@ -17,21 +17,21 @@ export function VerdictChart({ breakdown }: VerdictChartProps) {
       count: breakdown.yes,
       percent: (breakdown.yes / total) * 100,
       color: "bg-emerald-500",
-      textColor: "text-emerald-400",
+      textColor: "text-emerald-600",
     },
     {
       label: "Maybe",
       count: breakdown.maybe,
       percent: (breakdown.maybe / total) * 100,
       color: "bg-amber-400",
-      textColor: "text-amber-400",
+      textColor: "text-amber-600",
     },
     {
       label: "No",
       count: breakdown.no,
       percent: (breakdown.no / total) * 100,
       color: "bg-red-500",
-      textColor: "text-red-400",
+      textColor: "text-red-600",
     },
   ];
 

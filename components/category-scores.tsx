@@ -11,9 +11,9 @@ function getScoreColor(score: number): {
   bar: string;
   text: string;
 } {
-  if (score >= 7) return { bar: "bg-emerald-500", text: "text-emerald-400" };
-  if (score >= 4) return { bar: "bg-amber-400", text: "text-amber-400" };
-  return { bar: "bg-red-500", text: "text-red-400" };
+  if (score >= 7) return { bar: "bg-emerald-500", text: "text-emerald-600" };
+  if (score >= 4) return { bar: "bg-amber-400", text: "text-amber-600" };
+  return { bar: "bg-red-500", text: "text-red-600" };
 }
 
 export function CategoryScores({ categories }: CategoryScoresProps) {
@@ -22,7 +22,7 @@ export function CategoryScores({ categories }: CategoryScoresProps) {
   );
 
   return (
-    <div className="rounded-2xl border border-border bg-surface p-6">
+    <div className="rounded-2xl bg-white card-shadow p-6">
       <h3 className="mb-5 text-lg font-semibold text-foreground">
         Category Scores
       </h3>
