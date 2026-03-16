@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useParams } from "next/navigation";
-import { ExternalLink, ArrowLeft } from "lucide-react";
+import { ExternalLink, ArrowLeft, Crown } from "lucide-react";
 import type {
   PersonaReview,
   AggregateData,
@@ -44,11 +44,9 @@ function computeAggregate(reviews: PersonaReview[]): AggregateData {
 
   const totalReviews = reviews.length;
 
-  // Overall score
   const overallScore =
     reviews.reduce((sum, r) => sum + r.overallScore, 0) / totalReviews;
 
-  // Verdict breakdown
   const verdictBreakdown: VerdictBreakdown = { yes: 0, maybe: 0, no: 0 };
   reviews.forEach((r) => {
     verdictBreakdown[r.verdict]++;
@@ -58,7 +56,6 @@ function computeAggregate(reviews: PersonaReview[]): AggregateData {
     ((verdictBreakdown.yes + verdictBreakdown.maybe * 0.5) / totalReviews) *
     100;
 
-  // Category averages
   const categoryAverages: CategoryAverage[] = SCORE_CATEGORIES.map((cat) => {
     const scores = reviews
       .map((r) => r.categoryScores.find((cs) => cs.category === cat))
@@ -68,7 +65,6 @@ function computeAggregate(reviews: PersonaReview[]): AggregateData {
     return { category: cat, averageScore: avg };
   });
 
-  // Audience fit - group by segment
   const segmentMap = new Map<
     string,
     { scores: number[]; recommendations: string[] }
@@ -97,7 +93,6 @@ function computeAggregate(reviews: PersonaReview[]): AggregateData {
     .sort((a, b) => b.fitScore - a.fitScore)
     .slice(0, 8);
 
-  // Top recommendations - extract from concerns and group
   const concernCounts = new Map<string, { count: number; descriptions: string[] }>();
   reviews.forEach((r) => {
     if (r.topConcern) {
@@ -144,7 +139,6 @@ export default function ReviewPage() {
   const params = useParams();
   const reviewId = params.id as string;
 
-  // State
   const [url, setUrl] = useState<string>("");
   const [scrapedContent, setScrapedContent] = useState<string>("");
   const [reviews, setReviews] = useState<PersonaReview[]>([]);
@@ -155,8 +149,11 @@ export default function ReviewPage() {
   const [aggregate, setAggregate] = useState<AggregateData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isComplete, setIsComplete] = useState(false);
+  const [isPro] = useState(false); // TODO: Check Stripe subscription status
 
   const processingRef = useRef(false);
+  const maxWaves = isPro ? 5 : 1;
+  const maxPersonas = isPro ? 100 : 20;
 
   // Initialize from sessionStorage
   useEffect(() => {
@@ -235,7 +232,6 @@ export default function ReviewPage() {
       if (processingRef.current) return;
       processingRef.current = true;
 
-      const maxWaves = 1; // Demo mode: 1 wave (20 personas)
       let allReviews: PersonaReview[] = [];
 
       for (let wave = 1; wave <= maxWaves; wave++) {
@@ -244,7 +240,6 @@ export default function ReviewPage() {
         if (!waveReviews) break;
         allReviews = [...allReviews, ...waveReviews];
 
-        // Update aggregate after each wave
         const agg = computeAggregate(allReviews);
         setAggregate(agg);
       }
@@ -267,7 +262,7 @@ export default function ReviewPage() {
         // Saving is best-effort
       }
     },
-    [processWave, reviewId, url]
+    [processWave, reviewId, url, maxWaves]
   );
 
   // Auto-start processing when content is available
@@ -284,26 +279,25 @@ export default function ReviewPage() {
     }
   }, [reviews]);
 
-  // Overall progress percentage
   const progressPercent =
     (waveStatuses.filter((s) => s === "complete").length /
       WAVE_DEFINITIONS.length) *
     100;
 
   return (
-    <div className="min-h-screen bg-white font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-screen bg-background font-body">
       {/* Header bar */}
-      <header className="sticky top-0 z-10 border-b border-gray-200 bg-white/80 backdrop-blur-md">
+      <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <a
             href="/"
-            className="flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-gray-900"
+            className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
             Back
           </a>
-          <h1 className="text-sm font-semibold text-gray-900">
-            Agentic First Review
+          <h1 className="text-sm font-semibold text-foreground">
+            Agentic-First SEO
           </h1>
           <div className="w-16" />
         </div>
@@ -312,13 +306,13 @@ export default function ReviewPage() {
       <main className="mx-auto max-w-5xl px-4 py-8">
         {/* URL being reviewed */}
         {url && (
-          <div className="mb-6 flex items-center gap-2 text-sm text-gray-500">
+          <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
             <span>Reviewing:</span>
             <a
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 font-medium text-indigo-600 hover:underline"
+              className="inline-flex items-center gap-1 font-medium text-accent hover:underline"
             >
               {url}
               <ExternalLink className="h-3 w-3" />
@@ -328,13 +322,13 @@ export default function ReviewPage() {
 
         {/* Overall progress bar */}
         <div className="mb-8">
-          <div className="mb-2 flex items-center justify-between text-xs text-gray-500">
+          <div className="mb-2 flex items-center justify-between text-xs text-muted-foreground">
             <span>Progress</span>
             <span>{Math.round(progressPercent)}%</span>
           </div>
-          <div className="h-2 overflow-hidden rounded-full bg-gray-100">
+          <div className="h-2 overflow-hidden rounded-full bg-muted">
             <div
-              className="h-full rounded-full bg-indigo-600 transition-all duration-700 ease-out"
+              className="h-full rounded-full bg-accent transition-all duration-700 ease-out"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -345,12 +339,33 @@ export default function ReviewPage() {
           <ReviewProgress
             waveStatuses={waveStatuses}
             totalReviewed={reviews.length}
+            maxPersonas={maxPersonas}
+            isPro={isPro}
           />
         </div>
 
+        {/* Upgrade CTA for free users after wave 1 */}
+        {!isPro && isComplete && (
+          <div className="mb-8 rounded-xl border border-accent/20 bg-accent/5 p-6 text-center">
+            <Crown className="mx-auto mb-2 h-8 w-8 text-accent" />
+            <h3 className="mb-1 text-lg font-semibold text-foreground">
+              Unlock the full 100-persona analysis
+            </h3>
+            <p className="mb-4 text-sm text-muted-foreground">
+              Upgrade to Pro for 5 waves, 100 personas, unlimited reviews, and shareable reports.
+            </p>
+            <a
+              href="/#pricing"
+              className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-2.5 text-sm font-semibold text-background hover:bg-accent-hover glow-accent"
+            >
+              Upgrade to Pro — $9.99/mo
+            </a>
+          </div>
+        )}
+
         {/* Error display */}
         {error && (
-          <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <div className="mb-6 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
             {error}
           </div>
         )}
@@ -360,27 +375,21 @@ export default function ReviewPage() {
         {/* Results section */}
         {aggregate && reviews.length > 0 && (
           <div className="space-y-8">
-            {/* Aggregate summary */}
             <AggregateSummary aggregate={aggregate} />
-
-            {/* Category scores */}
             <CategoryScores categories={aggregate.categoryAverages} />
 
-            {/* Recommendations */}
             {aggregate.topRecommendations.length > 0 && (
               <Recommendations
                 recommendations={aggregate.topRecommendations}
               />
             )}
 
-            {/* Audience fit */}
             {aggregate.audienceFit.length > 0 && (
               <AudienceFit rows={aggregate.audienceFit} />
             )}
 
-            {/* Individual persona reviews */}
             <div>
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="mb-4 text-lg font-semibold text-foreground">
                 Individual Reviews ({reviews.length})
               </h3>
               <div className="space-y-3">
@@ -393,8 +402,7 @@ export default function ReviewPage() {
               </div>
             </div>
 
-            {/* Copy report */}
-            <div className="border-t border-gray-200 pt-8">
+            <div className="border-t border-border pt-8">
               <CopyReport
                 url={url}
                 reviews={reviews}
@@ -402,7 +410,7 @@ export default function ReviewPage() {
                 disabled={!isComplete}
               />
               {!isComplete && (
-                <p className="mt-2 text-xs text-gray-400">
+                <p className="mt-2 text-xs text-muted-foreground">
                   Report export available after all waves complete
                 </p>
               )}
@@ -413,8 +421,8 @@ export default function ReviewPage() {
         {/* Empty state while loading */}
         {reviews.length === 0 && !error && (
           <div className="py-20 text-center">
-            <div className="mx-auto mb-4 h-12 w-12 animate-pulse rounded-full bg-indigo-100" />
-            <p className="text-sm text-gray-500">
+            <div className="mx-auto mb-4 h-12 w-12 animate-pulse rounded-full bg-accent/20" />
+            <p className="text-sm text-muted-foreground">
               Processing your review... This may take a minute.
             </p>
           </div>

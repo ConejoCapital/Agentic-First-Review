@@ -1,75 +1,155 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, Sparkles } from "lucide-react";
+import { Check, Sparkles, Loader2 } from "lucide-react";
 
-const features = [
-  "20 specialized AI agent reviewers",
-  "Detailed scores across 10 categories",
-  "Audience fit analysis",
-  "Top recommendations",
-  "Copy-to-clipboard report export",
+const plans = [
+  {
+    name: "Free",
+    price: "$0",
+    period: "",
+    description: "Try it out with 20 expert personas",
+    features: [
+      "20 personas (Wave 1: Technical)",
+      "3 reviews per day",
+      "Basic report with scores",
+      "Copy-to-clipboard report export",
+    ],
+    cta: "Get Started Free",
+    highlight: false,
+  },
+  {
+    name: "Pro",
+    price: "$9.99",
+    period: "/month",
+    description: "Full 100-persona analysis across all 5 waves",
+    features: [
+      "100 personas (all 5 waves)",
+      "Unlimited reviews",
+      "Full report + audience fit",
+      "Shareable results link",
+      "Priority processing",
+    ],
+    cta: "Upgrade to Pro",
+    highlight: true,
+  },
 ];
 
 export function PricingSection() {
+  const [loading, setLoading] = useState(false);
+
+  const handleProClick = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/stripe/checkout", { method: "POST" });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert("Stripe is not configured yet. Set STRIPE_SECRET_KEY and STRIPE_PRICE_ID.");
+        setLoading(false);
+      }
+    } catch {
+      alert("Failed to start checkout. Please try again.");
+      setLoading(false);
+    }
+  };
+
   return (
     <section id="pricing" className="px-4 py-20">
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-4xl">
         <motion.h2
-          className="mb-4 text-center text-3xl font-bold text-gray-900"
+          className="mb-4 text-center font-display text-3xl text-foreground"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Free Demo
+          Simple Pricing
         </motion.h2>
         <motion.p
-          className="mb-12 text-center text-gray-500"
+          className="mb-12 text-center text-muted-foreground"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
         >
-          All features unlocked. No sign-up required.
+          Start free, upgrade when you need more.
         </motion.p>
 
-        <motion.div
-          className="rounded-2xl border-2 border-indigo-200 bg-indigo-50/30 p-8 shadow-lg shadow-indigo-100/50"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <div className="mb-4 inline-flex items-center gap-1 rounded-full bg-indigo-600 px-3 py-1 text-xs font-semibold text-white">
-            <Sparkles className="h-3 w-3" />
-            Demo Mode
-          </div>
-          <h3 className="text-xl font-bold text-gray-900">Full Access</h3>
-          <div className="mt-2 flex items-baseline gap-1">
-            <span className="text-4xl font-extrabold text-gray-900">$0</span>
-          </div>
-          <p className="mt-2 text-sm text-gray-500">
-            20 AI agents analyze your site — no payment required
-          </p>
+        <div className="grid gap-8 md:grid-cols-2">
+          {plans.map((plan, i) => (
+            <motion.div
+              key={plan.name}
+              className={`rounded-2xl border p-8 ${
+                plan.highlight
+                  ? "border-accent/30 bg-accent/5"
+                  : "border-border bg-surface"
+              }`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15 }}
+            >
+              {plan.highlight && (
+                <div className="mb-4 inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-background">
+                  <Sparkles className="h-3 w-3" />
+                  Most Popular
+                </div>
+              )}
+              <h3 className="text-xl font-bold text-foreground">{plan.name}</h3>
+              <div className="mt-2 flex items-baseline gap-1">
+                <span className="text-4xl font-extrabold text-foreground">
+                  {plan.price}
+                </span>
+                {plan.period && (
+                  <span className="text-sm text-muted-foreground">
+                    {plan.period}
+                  </span>
+                )}
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">
+                {plan.description}
+              </p>
 
-          <ul className="mt-6 space-y-3">
-            {features.map((feature) => (
-              <li
-                key={feature}
-                className="flex items-start gap-2 text-sm text-gray-600"
-              >
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-indigo-600" />
-                {feature}
-              </li>
-            ))}
-          </ul>
+              <ul className="mt-6 space-y-3">
+                {plan.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-start gap-2 text-sm text-muted-foreground"
+                  >
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
 
-          <a
-            href="#"
-            className="mt-8 block rounded-xl bg-indigo-600 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
-          >
-            Get Started
-          </a>
-        </motion.div>
+              {plan.highlight ? (
+                <button
+                  onClick={handleProClick}
+                  disabled={loading}
+                  className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-accent py-3 text-sm font-semibold text-background transition-colors hover:bg-accent-hover glow-accent disabled:opacity-50"
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Loading...
+                    </>
+                  ) : (
+                    plan.cta
+                  )}
+                </button>
+              ) : (
+                <a
+                  href="#"
+                  className="mt-8 block rounded-xl border border-border py-3 text-center text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+                >
+                  {plan.cta}
+                </a>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

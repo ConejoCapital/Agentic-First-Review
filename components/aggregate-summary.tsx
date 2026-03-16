@@ -15,16 +15,16 @@ function ScoreRing({ score }: { score: number }) {
   const progress = (score / 10) * circumference;
   const color =
     score >= 7
-      ? "text-emerald-500"
+      ? "text-emerald-400"
       : score >= 5
-        ? "text-amber-500"
-        : "text-red-500";
+        ? "text-amber-400"
+        : "text-red-400";
   const strokeColor =
     score >= 7
-      ? "stroke-emerald-500"
+      ? "stroke-emerald-400"
       : score >= 5
-        ? "stroke-amber-500"
-        : "stroke-red-500";
+        ? "stroke-amber-400"
+        : "stroke-red-400";
 
   return (
     <div className="relative inline-flex items-center justify-center">
@@ -34,7 +34,7 @@ function ScoreRing({ score }: { score: number }) {
           cy="60"
           r={radius}
           fill="none"
-          stroke="#e5e7eb"
+          className="score-ring-bg"
           strokeWidth="8"
         />
         <motion.circle
@@ -60,7 +60,7 @@ function ScoreRing({ score }: { score: number }) {
         >
           {score.toFixed(1)}
         </motion.span>
-        <span className="text-sm text-gray-400">/ 10</span>
+        <span className="text-sm text-muted-foreground">/ 10</span>
       </div>
     </div>
   );
@@ -78,36 +78,33 @@ export function AggregateSummary({ aggregate }: AggregateSummaryProps) {
 
   return (
     <motion.div
-      className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+      className="rounded-2xl border border-border bg-surface p-6"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <h2 className="mb-6 text-lg font-semibold text-gray-900">
+      <h2 className="mb-6 text-lg font-semibold text-foreground">
         Review Summary
       </h2>
 
       <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
-        {/* Score ring */}
         <div className="flex flex-col items-center">
           <ScoreRing score={aggregate.overallScore} />
-          <p className="mt-2 text-sm font-medium text-gray-500">
+          <p className="mt-2 text-sm font-medium text-muted-foreground">
             Overall Score
           </p>
         </div>
 
-        {/* Verdict bars */}
         <div className="flex-1 space-y-3">
-          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500">
+          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
             Verdict Breakdown
           </h3>
 
-          {/* Yes */}
           <div className="flex items-center gap-3">
-            <span className="w-14 text-right text-sm font-medium text-gray-600">
+            <span className="w-14 text-right text-sm font-medium text-muted-foreground">
               Yes
             </span>
-            <div className="flex-1 overflow-hidden rounded-full bg-gray-100">
+            <div className="flex-1 overflow-hidden rounded-full bg-muted">
               <motion.div
                 className="h-3 rounded-full bg-emerald-500"
                 initial={{ width: 0 }}
@@ -115,17 +112,16 @@ export function AggregateSummary({ aggregate }: AggregateSummaryProps) {
                 transition={{ duration: 0.8, ease: "easeOut" }}
               />
             </div>
-            <span className="w-16 text-sm text-gray-500">
+            <span className="w-16 text-sm text-muted-foreground">
               {aggregate.verdictBreakdown.yes} ({yesPercent.toFixed(0)}%)
             </span>
           </div>
 
-          {/* Maybe */}
           <div className="flex items-center gap-3">
-            <span className="w-14 text-right text-sm font-medium text-gray-600">
+            <span className="w-14 text-right text-sm font-medium text-muted-foreground">
               Maybe
             </span>
-            <div className="flex-1 overflow-hidden rounded-full bg-gray-100">
+            <div className="flex-1 overflow-hidden rounded-full bg-muted">
               <motion.div
                 className="h-3 rounded-full bg-amber-400"
                 initial={{ width: 0 }}
@@ -133,17 +129,16 @@ export function AggregateSummary({ aggregate }: AggregateSummaryProps) {
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
               />
             </div>
-            <span className="w-16 text-sm text-gray-500">
+            <span className="w-16 text-sm text-muted-foreground">
               {aggregate.verdictBreakdown.maybe} ({maybePercent.toFixed(0)}%)
             </span>
           </div>
 
-          {/* No */}
           <div className="flex items-center gap-3">
-            <span className="w-14 text-right text-sm font-medium text-gray-600">
+            <span className="w-14 text-right text-sm font-medium text-muted-foreground">
               No
             </span>
-            <div className="flex-1 overflow-hidden rounded-full bg-gray-100">
+            <div className="flex-1 overflow-hidden rounded-full bg-muted">
               <motion.div
                 className="h-3 rounded-full bg-red-500"
                 initial={{ width: 0 }}
@@ -151,39 +146,38 @@ export function AggregateSummary({ aggregate }: AggregateSummaryProps) {
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
               />
             </div>
-            <span className="w-16 text-sm text-gray-500">
+            <span className="w-16 text-sm text-muted-foreground">
               {aggregate.verdictBreakdown.no} ({noPercent.toFixed(0)}%)
             </span>
           </div>
         </div>
       </div>
 
-      {/* Stats row */}
-      <div className="mt-8 grid grid-cols-3 gap-4 border-t border-gray-100 pt-6">
+      <div className="mt-8 grid grid-cols-3 gap-4 border-t border-border pt-6">
         <div className="flex flex-col items-center gap-1">
-          <div className="flex items-center gap-1.5 text-indigo-600">
+          <div className="flex items-center gap-1.5 text-accent">
             <Users className="h-4 w-4" />
             <span className="text-xl font-bold">{aggregate.totalReviews}</span>
           </div>
-          <span className="text-xs text-gray-500">personas reviewed</span>
+          <span className="text-xs text-muted-foreground">personas reviewed</span>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <div className="flex items-center gap-1.5 text-emerald-600">
+          <div className="flex items-center gap-1.5 text-emerald-400">
             <ThumbsUp className="h-4 w-4" />
             <span className="text-xl font-bold">
               {aggregate.recommendPercentage.toFixed(0)}%
             </span>
           </div>
-          <span className="text-xs text-gray-500">would recommend</span>
+          <span className="text-xs text-muted-foreground">would recommend</span>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <div className="flex items-center gap-1.5 text-amber-500">
+          <div className="flex items-center gap-1.5 text-amber-400">
             <Star className="h-4 w-4" />
             <span className="text-xl font-bold">
               {aggregate.overallScore.toFixed(1)}
             </span>
           </div>
-          <span className="text-xs text-gray-500">average score</span>
+          <span className="text-xs text-muted-foreground">average score</span>
         </div>
       </div>
     </motion.div>

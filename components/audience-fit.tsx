@@ -10,10 +10,10 @@ interface AudienceFitProps {
 function FitBadge({ score }: { score: number }) {
   const color =
     score >= 7
-      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+      ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
       : score >= 5
-        ? "bg-amber-50 text-amber-700 border-amber-200"
-        : "bg-red-50 text-red-700 border-red-200";
+        ? "bg-amber-500/10 text-amber-400 border-amber-500/20"
+        : "bg-red-500/10 text-red-400 border-red-500/20";
   return (
     <span
       className={cn(
@@ -30,24 +30,24 @@ export function AudienceFit({ rows }: AudienceFitProps) {
   if (rows.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-5 text-lg font-semibold text-gray-900">
+    <div className="rounded-2xl border border-border bg-surface p-6">
+      <h3 className="mb-5 text-lg font-semibold text-foreground">
         Audience Fit
       </h3>
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-gray-200">
-              <th className="pb-3 pr-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
+            <tr className="border-b border-border">
+              <th className="pb-3 pr-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Audience Segment
               </th>
-              <th className="pb-3 pr-4 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">
+              <th className="pb-3 pr-4 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Fit Score
               </th>
-              <th className="pb-3 pr-4 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">
+              <th className="pb-3 pr-4 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Personas
               </th>
-              <th className="pb-3 text-xs font-semibold uppercase tracking-wider text-gray-500">
+              <th className="pb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Recommendation
               </th>
             </tr>
@@ -57,20 +57,20 @@ export function AudienceFit({ rows }: AudienceFitProps) {
               <tr
                 key={row.segment}
                 className={cn(
-                  "border-b border-gray-100",
-                  i % 2 === 1 && "bg-gray-50/50"
+                  "border-b border-border/50",
+                  i % 2 === 1 && "bg-muted/30"
                 )}
               >
-                <td className="py-3 pr-4 font-medium text-gray-900">
+                <td className="py-3 pr-4 font-medium text-foreground">
                   {row.segment}
                 </td>
                 <td className="py-3 pr-4 text-center">
                   <FitBadge score={row.fitScore} />
                 </td>
-                <td className="py-3 pr-4 text-center text-gray-500">
+                <td className="py-3 pr-4 text-center text-muted-foreground">
                   {row.personaCount}
                 </td>
-                <td className="py-3 text-gray-600">{row.recommendation}</td>
+                <td className="py-3 text-muted-foreground">{row.recommendation}</td>
               </tr>
             ))}
           </tbody>

@@ -1,8 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { scrapeUrl, contentToPromptText } from "@/lib/scraper";
+import { checkRateLimit } from "@/lib/rate-limiter";
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting for free tier
+    const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "unknown";
+    const rateLimit = checkRateLimit(ip);
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error: "Daily review limit reached. Upgrade to Pro for unlimited reviews.",
+          remaining: 0,
+          resetAt: rateLimit.resetAt,
+        },
+        { status: 429 }
+      );
+    }
+
     const { url } = await request.json();
 
     if (!url || typeof url !== "string") {
@@ -12,7 +28,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate URL
     let parsedUrl: URL;
     try {
       parsedUrl = new URL(url.startsWith("http") ? url : `https://${url}`);
@@ -23,11 +38,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Scrape the URL
     const scraped = await scrapeUrl(parsedUrl.toString());
     const content = contentToPromptText(scraped);
 
-    // Generate a review ID
     const reviewId = `rev_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
 
     return NextResponse.json({
@@ -35,6 +48,7 @@ export async function POST(request: NextRequest) {
       content,
       url: parsedUrl.toString(),
       title: scraped.title,
+      remaining: rateLimit.remaining,
     });
   } catch (error) {
     console.error("Review init error:", error);

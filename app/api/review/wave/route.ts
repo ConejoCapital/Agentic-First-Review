@@ -23,7 +23,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Use provided key or fall back to server key
+    // Gate waves 2-5 behind Pro (TODO: check Stripe subscription)
+    if (waveNumber > 1) {
+      // For now, allow if user provides their own API key
+      // In production, check Stripe subscription status
+    }
+
     const key = apiKey || process.env.ANTHROPIC_API_KEY;
     if (!key) {
       return NextResponse.json(

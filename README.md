@@ -1,12 +1,12 @@
-# Agentic First Review
+# Agentic-First SEO
 
-**Get your website reviewed by 100 AI expert personas.** Paste any URL and receive actionable feedback from developers, marketers, designers, investors, and more.
+**Is your website ready for the AI agent era?** 100 AI agent personas analyze your website from the perspective of the agentic web. Get scores, verdicts, and actionable SEO recommendations.
 
 ## How It Works
 
-1. **Paste your URL** - Website or GitHub repository
-2. **100 AI agents review it** - In 5 waves of 20 expert personas each
-3. **Get an actionable report** - Scores, verdicts, recommendations, and audience fit analysis
+1. **Submit your URL** — Enter any website URL
+2. **100 AI agents analyze it** — 5 waves of 20 expert personas evaluate your site
+3. **Get your Agentic SEO Report** — Scores, verdicts, recommendations, and audience fit analysis
 
 ## Personas (5 Waves)
 
@@ -22,8 +22,8 @@
 
 Each persona evaluates across 10 categories (1-10 scale):
 - First Impression, Value Proposition, Trust & Credibility
-- Documentation, Visual Design, UX & Navigation
-- Technical Depth, Social Proof, Mobile Experience, Conversion Potential
+- User Experience, Content Quality, Visual Design
+- Performance, Mobile Experience, Accessibility, Call-to-Action Clarity
 
 Verdicts: **Yes** (would use) | **Maybe** (interested but blockers) | **No** (would not use)
 
@@ -31,10 +31,8 @@ Verdicts: **Yes** (would use) | **Maybe** (interested but blockers) | **No** (wo
 
 | Tier | Price | Includes |
 |------|-------|----------|
-| **Free** | $0 | 20 personas (Wave 1), 1 review/day |
-| **Pro** | $9.99/mo | 100 personas (all waves), unlimited reviews, BYOK |
-
-Pro users bring their own Anthropic API key for unlimited reviews.
+| **Free** | $0 | 20 personas (Wave 1), 3 reviews/day |
+| **Pro** | $9.99/mo | 100 personas (all waves), unlimited reviews, shareable reports |
 
 ## Tech Stack
 
@@ -47,8 +45,8 @@ Pro users bring their own Anthropic API key for unlimited reviews.
 ## Local Development
 
 ```bash
-git clone https://github.com/ConejoCapital/Agentic-First-Review.git
-cd Agentic-First-Review
+git clone https://github.com/ConejoCapital/Agentic-First-SEO.git
+cd Agentic-First-SEO
 npm install
 cp .env.example .env.local
 # Add your ANTHROPIC_API_KEY to .env.local
@@ -61,30 +59,13 @@ Open [http://localhost:3000](http://localhost:3000).
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `ANTHROPIC_API_KEY` | Yes | Platform API key for free tier |
+| `ANTHROPIC_API_KEY` | Yes | Claude API key for AI reviews |
 | `KV_REST_API_URL` | No | Upstash Redis URL for saving results |
 | `KV_REST_API_TOKEN` | No | Upstash Redis token |
 | `STRIPE_SECRET_KEY` | No | Stripe secret key for subscriptions |
-| `STRIPE_PUBLISHABLE_KEY` | No | Stripe publishable key |
+| `STRIPE_PRICE_ID` | No | Stripe price ID for Pro plan |
 | `STRIPE_WEBHOOK_SECRET` | No | Stripe webhook verification |
-| `STRIPE_PRICE_ID` | No | Stripe price ID for $9.99/mo plan |
-
-## API
-
-### POST /api/review
-Initialize a review by scraping a URL.
-```json
-{ "url": "https://example.com" }
-```
-
-### POST /api/review/wave
-Run one wave of 20 persona reviews.
-```json
-{ "reviewId": "abc123", "waveNumber": 1, "content": { ... }, "apiKey": "sk-ant-..." }
-```
-
-### GET /api/review/[id]
-Fetch saved review results.
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | No | Stripe publishable key |
 
 ## License
 
@@ -92,4 +73,4 @@ MIT
 
 ## Built By
 
-[ConejoCapital](https://github.com/ConejoCapital)
+[ConejoCapital](https://github.com/ConejoCapital) — SEO for the Agentic Web

@@ -8,14 +8,14 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600">
-            <Sparkles className="h-4 w-4 text-white" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent">
+            <Sparkles className="h-4 w-4 text-background" />
           </div>
-          <span className="text-lg font-bold text-gray-900">
-            Agentic First Review
+          <span className="text-lg font-bold text-foreground">
+            Agentic-First SEO
           </span>
         </Link>
 
@@ -23,13 +23,19 @@ export function Header() {
         <nav className="hidden items-center gap-6 md:flex">
           <a
             href="#how-it-works"
-            className="text-sm text-gray-600 transition-colors hover:text-gray-900"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             How It Works
           </a>
           <a
+            href="#pricing"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Pricing
+          </a>
+          <a
             href="#"
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-background transition-colors hover:bg-accent-hover"
           >
             Get Started
           </a>
@@ -42,27 +48,34 @@ export function Header() {
           aria-label="Toggle menu"
         >
           {menuOpen ? (
-            <X className="h-6 w-6 text-gray-600" />
+            <X className="h-6 w-6 text-muted-foreground" />
           ) : (
-            <Menu className="h-6 w-6 text-gray-600" />
+            <Menu className="h-6 w-6 text-muted-foreground" />
           )}
         </button>
       </div>
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="border-t border-gray-100 bg-white px-4 py-4 md:hidden">
+        <div className="border-t border-border bg-background px-4 py-4 md:hidden">
           <nav className="flex flex-col gap-3">
             <a
               href="#how-it-works"
-              className="text-sm text-gray-600"
+              className="text-sm text-muted-foreground"
               onClick={() => setMenuOpen(false)}
             >
               How It Works
             </a>
             <a
+              href="#pricing"
+              className="text-sm text-muted-foreground"
+              onClick={() => setMenuOpen(false)}
+            >
+              Pricing
+            </a>
+            <a
               href="#"
-              className="rounded-lg bg-indigo-600 px-4 py-2 text-center text-sm font-semibold text-white"
+              className="rounded-lg bg-accent px-4 py-2 text-center text-sm font-semibold text-background"
               onClick={() => setMenuOpen(false)}
             >
               Get Started

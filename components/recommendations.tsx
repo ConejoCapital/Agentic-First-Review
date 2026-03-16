@@ -9,9 +9,9 @@ interface RecommendationsProps {
 
 function PriorityBadge({ priority }: { priority: Recommendation["priority"] }) {
   const config = {
-    Critical: "bg-red-50 text-red-700 border-red-200",
-    High: "bg-orange-50 text-orange-700 border-orange-200",
-    Medium: "bg-blue-50 text-blue-700 border-blue-200",
+    Critical: "bg-red-500/10 text-red-400 border-red-500/20",
+    High: "bg-orange-500/10 text-orange-400 border-orange-500/20",
+    Medium: "bg-blue-500/10 text-blue-400 border-blue-500/20",
   };
   return (
     <span
@@ -29,28 +29,28 @@ export function Recommendations({ recommendations }: RecommendationsProps) {
   if (recommendations.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-5 text-lg font-semibold text-gray-900">
+    <div className="rounded-2xl border border-border bg-surface p-6">
+      <h3 className="mb-5 text-lg font-semibold text-foreground">
         Top Recommendations
       </h3>
       <ol className="space-y-4">
         {recommendations.map((rec, i) => (
           <li
             key={i}
-            className="flex gap-4 rounded-lg border border-gray-100 bg-gray-50/50 p-4"
+            className="flex gap-4 rounded-lg border border-border bg-muted/50 p-4"
           >
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-600">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/10 text-sm font-bold text-accent">
               {i + 1}
             </span>
             <div className="flex-1">
               <div className="mb-1 flex flex-wrap items-center gap-2">
                 <PriorityBadge priority={rec.priority} />
-                <span className="text-sm font-semibold text-gray-900">
+                <span className="text-sm font-semibold text-foreground">
                   {rec.title}
                 </span>
               </div>
-              <p className="mb-2 text-sm text-gray-600">{rec.description}</p>
-              <span className="text-xs text-gray-400">
+              <p className="mb-2 text-sm text-muted-foreground">{rec.description}</p>
+              <span className="text-xs text-muted-foreground">
                 Mentioned by {rec.mentionCount}/{rec.totalPersonas} personas
               </span>
             </div>

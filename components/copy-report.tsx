@@ -34,7 +34,6 @@ export function CopyReport({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback for older browsers
       const textarea = document.createElement("textarea");
       textarea.value = report;
       document.body.appendChild(textarea);
@@ -53,7 +52,7 @@ export function CopyReport({
     const downloadUrl = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = downloadUrl;
-    a.download = `review-report-${new Date().toISOString().split("T")[0]}.md`;
+    a.download = `seo-report-${new Date().toISOString().split("T")[0]}.md`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -82,10 +81,10 @@ export function CopyReport({
         className={cn(
           "inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-all",
           disabled
-            ? "cursor-not-allowed bg-gray-100 text-gray-400"
+            ? "cursor-not-allowed bg-muted text-muted-foreground"
             : copied
               ? "bg-emerald-600 text-white"
-              : "bg-indigo-600 text-white hover:bg-indigo-700 active:scale-[0.98]"
+              : "bg-accent text-background hover:bg-accent-hover active:scale-[0.98]"
         )}
       >
         {copied ? (
@@ -107,8 +106,8 @@ export function CopyReport({
         className={cn(
           "inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-semibold transition-all",
           disabled
-            ? "cursor-not-allowed border-gray-200 text-gray-400"
-            : "border-gray-300 text-gray-700 hover:bg-gray-50 active:scale-[0.98]"
+            ? "cursor-not-allowed border-border text-muted-foreground"
+            : "border-border text-foreground hover:bg-muted active:scale-[0.98]"
         )}
       >
         <Download className="h-4 w-4" />
@@ -121,8 +120,8 @@ export function CopyReport({
         className={cn(
           "inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-semibold transition-all",
           disabled
-            ? "cursor-not-allowed border-gray-200 text-gray-400"
-            : "border-gray-300 text-gray-700 hover:bg-gray-50 active:scale-[0.98]"
+            ? "cursor-not-allowed border-border text-muted-foreground"
+            : "border-border text-foreground hover:bg-muted active:scale-[0.98]"
         )}
       >
         <Download className="h-4 w-4" />

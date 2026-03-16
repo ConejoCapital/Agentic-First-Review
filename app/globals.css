@@ -3,8 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #111827;
+  --background: #0a0a0a;
+  --foreground: #e5e5e5;
+  --surface: #1a1a1a;
+  --accent: #00e5a0;
+  --accent-hover: #00cc8e;
+  --muted: #262626;
+  --muted-foreground: #a3a3a3;
+  --border: #2a2a2a;
 }
 
 body {
@@ -16,4 +22,49 @@ body {
   html {
     scroll-behavior: smooth;
   }
+}
+
+/* Noise texture overlay */
+.noise-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Gradient mesh background */
+.gradient-mesh {
+  position: relative;
+}
+
+.gradient-mesh::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+      ellipse 80% 50% at 20% 40%,
+      rgba(0, 229, 160, 0.08) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 80% 20%,
+      rgba(0, 229, 160, 0.05) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+/* Accent glow for buttons */
+.glow-accent {
+  box-shadow: 0 0 20px rgba(0, 229, 160, 0.15),
+    0 0 60px rgba(0, 229, 160, 0.05);
+}
+
+/* Score ring background for dark theme */
+.score-ring-bg {
+  stroke: #2a2a2a;
 }

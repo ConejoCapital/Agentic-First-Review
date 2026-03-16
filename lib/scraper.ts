@@ -14,7 +14,7 @@ export interface ScrapedContent {
 export async function scrapeUrl(url: string): Promise<ScrapedContent> {
   const response = await fetch(url, {
     headers: {
-      "User-Agent": "AgenticFirstReview/1.0 (Website Review Bot)",
+      "User-Agent": "AgenticFirstSEO/1.0 (Website Analysis Bot)",
       Accept: "text/html,application/xhtml+xml",
     },
     signal: AbortSignal.timeout(15000),
