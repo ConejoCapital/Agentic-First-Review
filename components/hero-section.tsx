@@ -5,6 +5,12 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Globe, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import dynamic from "next/dynamic";
+
+const WarpShaderHero = dynamic(
+  () => import("@/components/ui/warp-shader"),
+  { ssr: false }
+);
 
 const PERSONA_TYPES = [
   "developers",
@@ -83,8 +89,10 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden px-4 pb-24 pt-20 sm:pt-32 hero-gradient">
-      <div className="mx-auto max-w-3xl text-center">
+    <section className="relative min-h-[600px] overflow-hidden px-4 pb-24 pt-20 sm:pt-32 hero-gradient">
+      <WarpShaderHero />
+
+      <div className="relative z-10 mx-auto max-w-3xl text-center">
         <motion.h1
           className="font-display text-4xl tracking-tight text-white sm:text-5xl lg:text-6xl"
           initial={{ opacity: 0, y: 20 }}

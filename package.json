@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.74.0",
+    "@paper-design/shaders-react": "^0.0.72",
     "@stripe/stripe-js": "^8.9.0",
     "@upstash/redis": "^1.36.2",
     "cheerio": "^1.2.0",
